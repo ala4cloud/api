@@ -1,0 +1,42 @@
+ 
+## Ignore Visual Studio temporary files, build results, and
+## user-specific files
+
+# Build results
+bin/
+obj/
+out/
+
+# VS Code settings
+.vscode/
+
+# Rider IDE
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET Core runtime files
+wwwroot/lib/
+*.log
+
+# Secrets and sensitive files
+secrets.json
+appsettings.Development.json
+*.pfx
+*.key
+*.pem
+
+# OS generated files
+.DS_Store
+Thumbs.db
