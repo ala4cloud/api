@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using alacloud_api.Models;
 using Azure.Identity;
 using Microsoft.Azure.Cosmos;
+using Azure.Security.KeyVault.Secrets;
 
 namespace alacloudAPI.Controllers;
 
@@ -14,24 +15,30 @@ public class HomeController : Controller
     private readonly CosmosClient _client;
     private readonly Database _database;
     private readonly Container _container;
+    private readonly SecretClient _secretClient;
 
 
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
 
-        var connection_string = "AccountEndpoint=https://tfex-cosmosdb-account-khw2hur8yl.documents.azure.com:443/;AccountKey=wtuLIMeECbbUXFKmD2U3oAFFQz5U6KIXORn7cCqLQrofugprBWrhjbVcqfhcP8pO53EWSHvEkQ0ZACDb4LAa7g==;";
+        string keyVaultName = Environment.GetEnvironmentVariable("KEY_VAULT_NAME");
+        var kvUri = "https://" + keyVaultName + ".vault.azure.net";
+        var _secretClient = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
+
+        var database_name = _secretClient.GetSecret("cosmosDB-name-dev").Value.Value;
+        var connection_string = _secretClient.GetSecret("cosmosDB-ConnectionString-dev").Value.Value;
+
+
+
         var _client = new CosmosClient(connection_string);
 
 
-        _database = _client.GetDatabase("tfex-cosmos-sql-dbkhw2hur8yl");
+        _database = _client.GetDatabase(database_name);
         _container = _database.GetContainer("skills");
 
 
     }
-
-
-    DefaultAzureCredential credential = new();
 
 
     public async Task<List<SkillsModel>> GetSkillsAsync()
