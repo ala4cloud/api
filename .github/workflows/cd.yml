@@ -1,0 +1,32 @@
+ame: CD - Deploy to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main  # Trigger this workflow when a new commit is pushed to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.CONTAINER_APP_APP_ID }}
+          client-secret: ${{ secrets.CONTAINER_APP_PASSWORD }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+
+      - name: Set up Azure CLI
+        uses: azure/setup-azurecli@v1
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp update \
+            --name alacloud-container-api-dev \
+            --resource-group rg-alacloud-api-dev \
+            --image ${{ secrets.ACR_NAME }}.azurecr.io/alacloud:latest \
+            --cpu 0.5 --memory 1Gi
