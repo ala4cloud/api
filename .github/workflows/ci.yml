@@ -28,5 +28,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/alacloudapi:latest .
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/alacloudapi:latest -f ./alacloud-api/Dockerfile .
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/alacloudapi:latest
