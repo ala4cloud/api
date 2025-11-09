@@ -29,7 +29,7 @@ jobs:
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}/src
+          appSourcePath: ${{ github.workspace }}/alacloud-api
           acrName: cralacloudapidev
           containerAppName: alacloud-container-api-dev
           resourceGroup: rg-alacloud-api-dev
