@@ -29,10 +29,7 @@ public class HomeController : Controller
         var database_name = _secretClient.GetSecret("cosmosDB-name-dev").Value.Value;
         var connection_string = _secretClient.GetSecret("cosmosDB-ConnectionString-dev").Value.Value;
 
-
-
         var _client = new CosmosClient(connection_string);
-
 
         _database = _client.GetDatabase(database_name);
         _container = _database.GetContainer("skills");
