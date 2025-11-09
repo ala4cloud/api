@@ -45,7 +45,7 @@ public class HomeController : Controller
             queryDefinition,
             requestOptions: new QueryRequestOptions
             {
-                PartitionKey = new PartitionKey("software")
+                //PartitionKey = new PartitionKey("software")
             });
 
         List<SkillsModel> results = new();
