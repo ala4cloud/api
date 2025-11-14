@@ -1,15 +1,20 @@
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReactApp",
+    options.AddPolicy("AllowLocalHost",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") // React dev server
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
+
+            policy
+                .SetIsOriginAllowed(origin =>
+                {
+                    var host = new Uri(origin).Host;
+                    return host == "localhost" || host == "127.0.0.1";
+                })
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
 });
 
@@ -27,7 +32,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 
-app.UseCors("AllowReactApp");
+app.UseCors("AllowLocalHost");
 
 app.Urls.Add("http://0.0.0.0:80");
 
