@@ -19,6 +19,10 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+
+    "ApplicationInsights": {
+      "ConnectionString": "${APPINSIGHTS_CONNECTION_STRING}"
     }
   }
 }
