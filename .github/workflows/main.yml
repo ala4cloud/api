@@ -33,4 +33,5 @@ jobs:
           acrName: cralacloudapidev
           containerAppName: alacloud-container-api-dev
           resourceGroup: rg-alacloud-api-dev
+          imageName: alacloud-api  
           imageTag : latest
