@@ -14,7 +14,7 @@ variables:
   imageRepository: 'alacloudapi'
   containerRegistry: 'cralacloudapidev.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/alacloud-api/Dockerfile'
-  tag: '$(Build.BuildId)'
+  tag: 'latest'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
